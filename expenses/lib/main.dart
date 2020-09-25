@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './transaction.dart';
+
 main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -10,31 +12,58 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  final List<Transaction> transactions = [
+    Transaction(id: '1', title: 'Shoes', amount: 100, date: DateTime.now()),
+    Transaction(id: '2', title: 'Shirts', amount: 90, date: DateTime.now()),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Expenses'),),
+        title: Center(
+          child: Text('Expenses'),
+        ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget> [
-        Card(
-          color: Colors.blue,
-          child: Container(
-            width : double.infinity,
-            child : Center(
-              child: Text('Chart'),
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Card(
+              color: Colors.blue,
+              child: Container(
+                width: double.infinity,
+                child: Center(
+                  child: Text('Chart'),
+                ),
               ),
+              elevation: 5,
             ),
-          elevation: 5,
-          ),
-        Card(
-          color: Colors.red,
-          child: Center(child: Text('List of Transactions'),),
-          ),
-      ]),
+            Column(
+              children: transactions.map((txn) {
+                return Card(
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.all(15),
+                        child: Text(txn.amount.toString()),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      Column(children: <Widget>[
+                        Text(txn.title),
+                        Text(txn.date.toString()),
+                      ])
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+          ]),
     );
   }
 }
