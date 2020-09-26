@@ -31,6 +31,8 @@ class MyHomePage extends StatelessWidget {
             Card(
               color: Colors.blue,
               child: Container(
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(15),
                 width: double.infinity,
                 child: Center(
                   child: Text('Chart'),
@@ -55,8 +57,18 @@ class MyHomePage extends StatelessWidget {
                         ),
                       ),
                       Column(children: <Widget>[
-                        Text(txn.title),
-                        Text(txn.date.toString()),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.all(10),
+                          child: Text(txn.title),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.all(10),
+                          child: Text(
+                            txn.date.toString(),
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
                       ])
                     ],
                   ),
