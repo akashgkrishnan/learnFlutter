@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  final inputTitle = TextEditingController();
-  final inputAmount = TextEditingController();
+  // final inputTitle = TextEditingController();
+  // final inputAmount = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
