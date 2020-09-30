@@ -18,25 +18,32 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Center(
-            child: Text('Expenses'),
-          ),
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.add), onPressed: () {}),
+        ],
+        title: Center(
+          child: Text('Expenses'),
         ),
-        body: ListView(children: <Widget>[
-          Card(
-            color: Colors.blue,
-            child: Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(15),
-              width: double.infinity,
-              child: Center(
-                child: Text('Chart'),
-              ),
+      ),
+      body: ListView(children: <Widget>[
+        Card(
+          color: Colors.blue,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.all(15),
+            width: double.infinity,
+            child: Center(
+              child: Text('Chart'),
             ),
-            elevation: 5,
           ),
-          UserTransactions(),
-        ]));
+          elevation: 5,
+        ),
+        UserTransactions(),
+      ]),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton:
+          FloatingActionButton(child: Icon(Icons.add), onPressed: () {}),
+    );
   }
 }
