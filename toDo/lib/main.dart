@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './models/todo_item.dart';
 import './widgets/new_todo.dart';
+import './widgets/todo_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,9 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _taskList.add(newTask);
     });
-    for (int i = 0; i < _taskList.length; ++i){
-      print('hello ${_taskList[i].task}');
-    }
   }
 
   void _addNewTodo(BuildContext ctx) {
@@ -68,12 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Text('Todo\'s'),
         ),
       ),
-      body: ListView(
-        children: <Widget>[
-          Center(
-            child: Text('hello'),)
-        ],
-      ),
+      body: TodoList(_taskList),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
           elevation: 5,
