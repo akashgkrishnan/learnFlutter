@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
 
-class AddTodo extends StatelessWidget {
-  final inputTaskNameController = TextEditingController();
+class AddTodo extends StatefulWidget {
   final Function addNewTask;
+
+  AddTodo(this.addNewTask);
+
+  @override
+  _AddTodoState createState() => _AddTodoState();
+}
+
+class _AddTodoState extends State<AddTodo> {
+  final inputTaskNameController = TextEditingController();
 
   void submitData() {
     final taskName = inputTaskNameController.text;
     if (taskName.isEmpty) {
       return;
     }
-    this.addNewTask(
-      taskName,
-    );
+    this.widget.addNewTask(
+          taskName,
+        );
+    inputTaskNameController.clear();
   }
-
-  AddTodo(this.addNewTask);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      
-        height: 420,
+        height: 530,
         child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
           elevation: 10,
           child: Container(
             margin: EdgeInsets.all(10),
@@ -33,7 +40,6 @@ class AddTodo extends StatelessWidget {
                 children: <Widget>[
                   TextField(
                     controller: inputTaskNameController,
-                    onSubmitted: (_) => submitData(),
                     decoration: InputDecoration(labelText: 'Whats next?'),
                   ),
                   FlatButton(

@@ -26,12 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Todo> _taskList = [
-    Todo(task: 'Call Babe'),
-    Todo(task: 'Pay Bills'),
-    Todo(task: 'Learn FLutter'),
-    Todo(task: 'Practice DSA'),
-  ];
+  final List<Todo> _taskList = [];
 
   void _addNewTask(String taskName) {
     final newTask = Todo(task: taskName);
@@ -53,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffbdbedf3),
+      backgroundColor: Color(0xffb020305),
       appBar: AppBar(
         actions: <Widget>[
           IconButton(
@@ -62,11 +57,22 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () => _addNewTodo(context)),
         ],
         backgroundColor: Color(0xffb17223b),
+        elevation: 22,
         title: Center(
-          child: Text('Todo\'s'),
+          child: Text('todo\'s',
+              style: TextStyle(color: Colors.white, fontSize: 24)),
         ),
+        shadowColor: Color(0xffb353941),
       ),
-      body: TodoList(_taskList),
+      body: _taskList.length == 0
+          ? Container(
+              margin: EdgeInsets.all(25),
+              child: const Text('whats next!',
+                  style: TextStyle(
+                      color: Color(0xffb4ECAB8),
+                      fontWeight: FontWeight.w100,
+                      fontSize: 38)))
+          : TodoList(_taskList),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
           elevation: 5,
