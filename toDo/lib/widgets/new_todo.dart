@@ -21,6 +21,7 @@ class _AddTodoState extends State<AddTodo> {
           taskName,
         );
     inputTaskNameController.clear();
+    Navigator.of(context).pop();
   }
 
   @override
