@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
+import './widgets/chart.dart';
 import './models/transaction.dart';
 
 main() => runApp(MyApp());
@@ -12,11 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Expenses',
-      theme:ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.teal,
         accentColor: Colors.purple,
         fontFamily: 'Quicksand',
-
       ),
       home: MyHomePage(),
     );
@@ -29,6 +29,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [];
+
+  List<Transaction> get _recentTransaction {
+    return _userTransactions.where((txn) {
+      return txn.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    }).toList();
+  }
 
   void _addNewTransaction(String title, double amount) {
     final newTxn = Transaction(
@@ -66,15 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView(children: <Widget>[
         Card(
           color: Theme.of(context).primaryColor,
-          child: Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.all(15),
-            width: double.infinity,
-            child: Center(
-              child: Text('Chart'),
-            ),
-          ),
-          elevation: 5,
+          child: Chart(_recentTransaction),
+          elevation: 15,
         ),
         TransactionList(_userTransactions)
       ]),
