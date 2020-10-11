@@ -72,11 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: ListView(children: <Widget>[
-        Card(
-          color: Theme.of(context).primaryColor,
-          child: Chart(_recentTransaction),
-          elevation: 15,
-        ),
+         Chart(_recentTransaction),
         TransactionList(_userTransactions)
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
