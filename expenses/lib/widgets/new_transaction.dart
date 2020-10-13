@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addNewTransaction;
@@ -10,13 +11,32 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  final inputTitleController = TextEditingController();
+  final _inputTitleController = TextEditingController();
 
-  final inputAmountController = TextEditingController();
+  final _inputAmountController = TextEditingController();
 
-  void submitData() {
-    final amountEntered = double.parse(inputAmountController.text);
-    final titleEntered = inputTitleController.text;
+  DateTime _selectedDate;
+
+  void _printDatePicker() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2020),
+            lastDate: DateTime.now())
+        .then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      } else {
+        setState(() {
+          _selectedDate = pickedDate;
+        });
+      }
+    });
+  }
+
+  void _submitData() {
+    final amountEntered = double.parse(_inputAmountController.text);
+    final titleEntered = _inputTitleController.text;
 
     if (titleEntered.isEmpty || amountEntered <= 0) {
       return;
@@ -43,22 +63,37 @@ class _NewTransactionState extends State<NewTransaction> {
                   // onChanged: (value) {
                   //   inputTitle = value;
                   // },
-                  controller: inputTitleController,
-                  onSubmitted: (_) => submitData(),
+                  controller: _inputTitleController,
+                  onSubmitted: (_) => _submitData(),
                   decoration:
                       InputDecoration(labelText: 'What did you spend on'),
                 ),
                 TextField(
-                  controller: inputAmountController,
-                  onSubmitted: (_) => submitData(),
+                  controller: _inputAmountController,
+                  onSubmitted: (_) => _submitData(),
                   keyboardType: TextInputType.number,
                   decoration:
                       InputDecoration(labelText: 'How much did you spend?'),
                 ),
-                FlatButton(
+                Container(
+                  height: 70,
+                  child: Row(children: <Widget>[
+                    Expanded(
+                      child: Text(_selectedDate == null
+                          ? 'No date chosen'
+                          : DateFormat.yMd().format(_selectedDate)),
+                    ),
+                    FlatButton(
+                        textColor: Theme.of(context).primaryColor,
+                        child: Text('choose date'),
+                        onPressed: _printDatePicker)
+                  ]),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
                   child: Text('Add Expense'),
-                  onPressed: submitData,
-                  textColor: Theme.of(context).primaryColor,
+                  onPressed: _submitData,
+                  textColor: Colors.white,
                 ),
               ])),
     );
