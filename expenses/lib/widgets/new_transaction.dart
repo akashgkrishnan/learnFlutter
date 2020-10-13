@@ -38,13 +38,14 @@ class _NewTransactionState extends State<NewTransaction> {
     final amountEntered = double.parse(_inputAmountController.text);
     final titleEntered = _inputTitleController.text;
 
-    if (titleEntered.isEmpty || amountEntered <= 0) {
+    if (titleEntered.isEmpty || amountEntered <= 0 || _selectedDate == null) {
       return;
     }
 
     this.widget.addNewTransaction(
           titleEntered,
           amountEntered,
+          _selectedDate
         );
     Navigator.of(context).pop();
   }
