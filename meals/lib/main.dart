@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './categories_screen.dart';
+import './category_meals_screen.dart';
 
 
 void main() => runApp(MyApp());
@@ -10,20 +11,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'meals',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.purple,
         canvasColor: Color.fromRGBO(255,254,229, 1),
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
-          body1: TextStyle(
+          bodyText2: TextStyle(
             color: Colors.teal,
           ),
-          title:TextStyle(
+          headline6:TextStyle(
             color: Colors.white,
             fontFamily:'RobotoCondensed',
           ),
         )
       ),
       home: CategoriesScreen(),
+      routes: {
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen()
+      }
     );
   }
 }
