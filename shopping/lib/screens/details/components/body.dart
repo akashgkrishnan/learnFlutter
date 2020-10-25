@@ -4,6 +4,8 @@ import 'product_title_with_images.dart';
 import 'package:shopping/constants.dart';
 import 'color_and_size.dart';
 import 'description.dart';
+import 'counter_with_heart_btn.dart';
+import 'add_to_cart.dart';
 
 class Body extends StatelessWidget {
   final Product product;
@@ -34,7 +36,12 @@ class Body extends StatelessWidget {
                   child: Column(
                     children: [
                       ColorAndSize(product: product),
-                      Description(product: product)
+                      SizedBox(height: kDefaultPadding/2,),
+                      Description(product: product),
+                      SizedBox(height: kDefaultPadding/2,),
+                      CounterWithHearBtn(),
+                      SizedBox(height: kDefaultPadding/2,),
+                      AddToCart(product: product)
                     ],
                   ),
                 ),

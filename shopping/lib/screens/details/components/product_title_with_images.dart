@@ -19,8 +19,7 @@ class ProductTitleWithImage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: kDefaultPadding / 4),
+            padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 4),
             child: Text(
               'aristocrat bags',
               style: TextStyle(
@@ -29,8 +28,7 @@ class ProductTitleWithImage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: kDefaultPadding / 4),
+            padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 4),
             child: Text(
               product.title,
               style: Theme.of(context).textTheme.headline4.copyWith(
@@ -50,10 +48,7 @@ class ProductTitleWithImage extends StatelessWidget {
                     TextSpan(text: 'price\n'),
                     TextSpan(
                       text: '\$${product.price}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          .copyWith(
+                      style: Theme.of(context).textTheme.headline4.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -65,9 +60,12 @@ class ProductTitleWithImage extends StatelessWidget {
                 width: kDefaultPadding,
               ),
               Expanded(
-                child: Image.asset(
-                  product.image,
-                  fit: BoxFit.fill,
+                child: Hero(
+                  tag: "${product.id}",
+                  child: Image.asset(
+                    product.image,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               )
             ],
