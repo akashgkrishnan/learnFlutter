@@ -4,6 +4,7 @@ import 'package:onboard_screen/constants.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:onboard_screen/components/custome_suffix_icon.dart';
 import 'package:onboard_screen/components/default_button.dart';
+import 'package:onboard_screen/components/form_error.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -44,6 +45,8 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
+  final _formKey = GlobalKey<FormState>();
+  final List<String> errors = ['error 1'];
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -57,9 +60,14 @@ class _SignInFormState extends State<SignInForm> {
           SizedBox(
             height: getProportinateScreenHeight(20),
           ),
+          FormErrors(errors: errors),
           DefaulButton(
             text: 'continue',
-            press: () {},
+            press: () {
+              if (_formKey.currentState.validate()) {
+                _formKey.currentState.save();
+              }
+            },
           ),
         ],
       ),
@@ -69,7 +77,6 @@ class _SignInFormState extends State<SignInForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: 'password',
         hintText: 'enter password',
@@ -84,6 +91,14 @@ class _SignInFormState extends State<SignInForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+        if (value.isEmpty) {
+          setState(() {
+            errors.add(kEmailNullError);
+          });
+        }
+        return null;
+      },
       decoration: InputDecoration(
         labelText: 'email',
         hintText: 'enter email',
