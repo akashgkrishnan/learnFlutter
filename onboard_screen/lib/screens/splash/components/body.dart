@@ -3,6 +3,7 @@ import 'package:onboard_screen/size_config.dart';
 import 'package:onboard_screen/constants.dart';
 import 'package:onboard_screen/components/default_button.dart';
 
+import 'package:onboard_screen/screens/sign_in/sign_in_screen.dart';
 import 'splash_content.dart';
 
 class Body extends StatefulWidget {
@@ -71,7 +72,9 @@ class _BodyState extends State<Body> {
                       flex: 3,
                     ),
                     DefaulButton(
-                      press: () {},
+                      press: () {
+                        Navigator.pushNamed(context, SignInScreen.routeName);
+                      },
                       text: 'continue',
                     ),
                     Spacer(
