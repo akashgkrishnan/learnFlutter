@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'screens/audioCallWithImage/audio_call_with_image_screen.dart';
-import 'screens/dialScreen/dial_screen.dart';
+
+import 'screens/groupCall/group_call_screen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
         fontFamily: "SF UI",
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: DialScreen(),
+      home: GroupCallScreen(),
+
     );
   }
 }

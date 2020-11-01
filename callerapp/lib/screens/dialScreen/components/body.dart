@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:callerapp/size_config.dart';
 import '../../../components/dial_user_pic.dart';
-import 'package:flutter_svg/svg.dart';
 import 'dial_button.dart';
 import '../../../components/rounded_button.dart';
 import 'package:callerapp/constants.dart';

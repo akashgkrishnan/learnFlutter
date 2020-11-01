@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:callerapp/size_config.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:callerapp/constants.dart';
 import 'package:callerapp/components/rounded_button.dart';
 
