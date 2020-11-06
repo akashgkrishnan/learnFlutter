@@ -4,7 +4,7 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Drawer(
+      child: Drawer(
         child: Column(
           children: [
             Container(
@@ -23,20 +23,28 @@ class MainDrawer extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            buildListTile(title: 'meals', icon: Icons.restaurant),
+            buildListTile(
+                title: 'meals',
+                icon: Icons.restaurant,
+                tapHandler: () {
+                  Navigator.of(context).pushReplacementNamed('/');
+                }),
             SizedBox(
               height: 20,
             ),
-            buildListTile(title: 'settings', icon: Icons.settings),
+            buildListTile(
+                title: 'settings', icon: Icons.settings, tapHandler: () {
+                  Navigator.of(context).pushReplacementNamed('/filters');
+                }),
           ],
         ),
       ),
     );
   }
 
-  ListTile buildListTile({String title, IconData icon}) {
+  ListTile buildListTile({String title, IconData icon, Function tapHandler}) {
     return ListTile(
-      onTap: () {},
+      onTap: tapHandler,
       leading: Icon(
         icon,
         size: 26,
