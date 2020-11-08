@@ -1,12 +1,10 @@
-
 import 'package:flutter/material.dart';
-import './components/body.dart';
+import 'components/body.dart';
 
-class SignUpScreen extends StatelessWidget {
-  static String routeName = '/signUpScreen';
+class HomeScreen extends StatelessWidget {
+  static String routeName = '/userHome';
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: Body(),
     );

@@ -5,6 +5,7 @@ import '../../../constants.dart';
 import '../../../widgets/rounded_button.dart';
 
 import '../../signin/sign_in_screen.dart';
+import '../../signup/sign_up_screen.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -33,7 +34,9 @@ class Body extends StatelessWidget {
           RoundedButton(
             size: size,
             text: 'sign up',
-            press: () {},
+            press: () {
+              Navigator.pushNamed(context, SignUpScreen.routeName);
+            },
           ),
         ],
       ),
