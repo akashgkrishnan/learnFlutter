@@ -7,7 +7,11 @@ class SendMoneyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Text('send money'),
+      ),
       body: Body(),
     );
   }

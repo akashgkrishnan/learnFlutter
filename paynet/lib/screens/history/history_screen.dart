@@ -7,7 +7,11 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('history'),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
       body: Body(),
     );
   }

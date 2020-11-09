@@ -64,6 +64,17 @@ class Body extends StatelessWidget {
                     icon: Icons.email_outlined,
                   ),
                 ),
+                                SizedBox(
+                  height: kDefaultPadding * 0.7,
+                ),
+                Container(
+                  margin: EdgeInsets.all(20),
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  child: SingleItemCard(
+                    text: DateFormat.yMMMMEEEEd().format(DateTime.now(),).toString(),
+                    icon: Icons.timer,
+                  ),
+                ),
               ],
             ),
           ),

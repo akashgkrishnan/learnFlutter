@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         accentColor: kAccentColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        iconTheme: IconThemeData(color: kPrimaryColor),
       ),
       // initialRoute: '/',
       initialRoute: HomeScreen.routeName,
