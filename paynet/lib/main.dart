@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import './screens/welcome/welcome_screen.dart';
-import './screens/signin/sign_in_screen.dart';
-import './screens/signup/sign_up_screen.dart';
 import './screens/homescreen/home_screen.dart';
 import 'constants.dart';
+import 'routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,13 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       // initialRoute: '/',
       initialRoute: HomeScreen.routeName,
-      routes: {
-
-        '/': (context) => WelcomeScreen(),
-         HomeScreen.routeName: (context) => HomeScreen(),
-        SignInScreen.routeName: (context) => SignInScreen(),
-        SignUpScreen.routeName: (context) => SignUpScreen(),
-      },
+      routes: routes,
     );
   }
 }
