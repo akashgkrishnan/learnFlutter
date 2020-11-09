@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
         primaryColor: kPrimaryColor,
-        accentColor: kSecondaryColor,
+        accentColor: kAccentColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // initialRoute: '/',
