@@ -3,7 +3,7 @@ import '../../../widgets/main_background.dart';
 import 'balance_card.dart';
 
 class Body extends StatelessWidget {
-  final double balance = 10000;
+  final double balance = 10;
   @override
   Widget build(BuildContext context) {
     return BackGround(

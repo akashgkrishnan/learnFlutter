@@ -11,7 +11,12 @@ class Body extends StatelessWidget {
     {'sendTo': 'akhila', 'amount': 12222.3, 'on': DateTime.now()},
     {'sendTo': 'mom', 'amount': 1220.23, 'on': DateTime.now()},
     {'sendTo': 'dad', 'amount': 56.3, 'on': DateTime.now()},
-    {'sendTo': 'chat juice center', 'amount': 10.3, 'on': DateTime.now()},
+    {'sendTo': 'chat juice center', 'amount': 10.3, 'on': DateTime.now(),},
+    {'sendTo': 'chat juice center', 'amount': 10.3, 'on': DateTime.now(),},
+    {'sendTo': 'chat juice center', 'amount': 10.3, 'on': DateTime.now(),},
+    {'sendTo': 'chat juice center', 'amount': 10.3, 'on': DateTime.now(),},
+
+
   ];
   @override
   Widget build(BuildContext context) {
@@ -36,18 +41,20 @@ class Body extends StatelessWidget {
           child: ListView.builder(
             itemBuilder: (context, index) {
               return ListTile(
+                contentPadding: EdgeInsets.all(10),
                 leading: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).primaryColor,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: Column(
                       children: [
                         Text(
                           DateFormat.d().format(transactions[index]['on']),
                         ),
+                        
                         Text(
                           DateFormat.MMM().format(transactions[index]['on']),
                         ),
@@ -55,8 +62,19 @@ class Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                title: Text(transactions[index]['sendTo']),
-                subtitle: Text(transactions[index]['amount'].toString()),
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    transactions[index]['sendTo'],
+                    style: TextStyle(color: Colors.black45),
+                  ),
+                ),
+                
+                subtitle: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:8.0, vertical: 5),
+                  child: Text(transactions[index]['amount'].toString(),
+                  style: TextStyle(color: Colors.black38),),
+                ),
               );
             },
             itemCount: transactions.length,

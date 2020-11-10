@@ -10,8 +10,8 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackGround(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           height: 150,
