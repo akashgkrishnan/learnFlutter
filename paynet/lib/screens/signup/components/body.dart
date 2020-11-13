@@ -37,7 +37,7 @@ class _BodyState extends State<Body> {
           ),
           CustomTextField(
             size: size,
-            icon: Icons.mail,
+            icon: Icons.mail_outline,
             text: 'email',
             isPassword: false,
           ),
@@ -49,7 +49,7 @@ class _BodyState extends State<Body> {
           ),
           CustomTextField(
             size: size,
-            icon: Icons.lock,
+            icon: Icons.lock_outlined,
             text: 'pin',
             isPassword: true,
           ),
