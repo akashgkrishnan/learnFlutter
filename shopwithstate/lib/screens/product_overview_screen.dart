@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/product_provider.dart';
+import '../providers/cart.dart';
 import '../widgets/product_grid.dart';
+import '../widgets/badge.dart';
+import '../screens/cart_screen.dart';
 
 enum FilterOptions {
   Favourites,
@@ -14,7 +17,7 @@ class ProductOverviewScreen extends StatefulWidget {
 }
 
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
-  var _showOnlyFavs = true;
+  var _showOnlyFavs = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,18 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
       appBar: AppBar(
         title: Text('shop'),
         actions: [
+          Consumer<Cart>(
+            builder: (_, cartItem, ch) => Badge(
+              child: ch,
+              value: cartItem.numOfCartItems.toString(),
+            ),
+            child: IconButton(
+              icon: Icon(Icons.shopping_bag),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+            ),
+          ),
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
               setState(() {
@@ -44,7 +59,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 value: FilterOptions.All,
               ),
             ],
-          )
+          ),
         ],
       ),
       body: ProductsGrid(showFavs: _showOnlyFavs),
