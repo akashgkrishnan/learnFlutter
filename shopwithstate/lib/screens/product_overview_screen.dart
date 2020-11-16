@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/product_provider.dart';
 import '../providers/cart.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/badge.dart';
@@ -22,7 +21,6 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productsContainer = Provider.of<Products>(context, listen: false);
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
