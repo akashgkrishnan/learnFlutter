@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../providers/product.dart';
+import '../providers/product_provider.dart';
+import 'package:provider/provider.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = '/edit-product';
@@ -20,11 +22,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveForm() {
+    final bool isValid = _form.currentState.validate();
+    if (!isValid) {
+      return;
+    }
     _form.currentState.save();
-    print(_editedProduct.title);
-    print(_editedProduct.description);
-    print(_editedProduct.price);
-    print(_editedProduct.imageUrl);
+    Provider.of<Products>(context, listen: false).addProduct(_editedProduct,);
   }
 
   @override
@@ -50,6 +53,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   labelText: 'title',
                 ),
                 textInputAction: TextInputAction.next,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'please provide a title';
+                  }
+                  return null;
+                },
                 onSaved: (value) {
                   _editedProduct = Product(
                       id: _editedProduct.id,
@@ -65,6 +74,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 ),
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'please provide a price';
+                  }
+                  if (double.tryParse(value) == null) {
+                    return 'enter a valid price';
+                  }
+                  if (double.parse(value) <= 0) {
+                    return 'price should be more than 0';
+                  }
+                  return null;
+                },
                 onSaved: (value) {
                   _editedProduct = Product(
                       id: _editedProduct.id,
@@ -80,6 +101,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 ),
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'please provide a description';
+                  }
+                  if (value.length < 10) {
+                    return 'make it 10 chars long atlease';
+                  }
+                  return null;
+                },
                 onSaved: (value) {
                   _editedProduct = Product(
                       id: _editedProduct.id,
@@ -117,6 +147,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       keyboardType: TextInputType.url,
                       textInputAction: TextInputAction.done,
                       controller: _imageUrlController,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'please provide a image url';
+                        }
+                        if (!value.startsWith('http') &&
+                            !value.startsWith('https')) {
+                          return 'invalid url';
+                        }
+                        if (!value.endsWith('.png') &&
+                            !value.endsWith('.jpeg') &&
+                            !value.endsWith('.jpg')) {
+                          return 'not an image';
+                        }
+                        return null;
+                      },
                       onEditingComplete: () {
                         setState(() {});
                       },
