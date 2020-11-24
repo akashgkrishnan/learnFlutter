@@ -15,10 +15,37 @@ class _EditProductScreenState extends State<EditProductScreen> {
   var _editedProduct =
       Product(id: null, title: '', description: '', price: 0, imageUrl: '');
 
+  var _initValues = {
+    'title': '',
+    'description': '',
+    'price': '',
+    'imageUrl': '',
+  };
+
   @override
   void dispose() {
     _imageUrlController.dispose();
     super.dispose();
+  }
+
+  bool isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (isInit) {
+      final productId = ModalRoute.of(context).settings.arguments as String;
+      if (productId != null) {
+        _editedProduct = Provider.of<Products>(context).findById(productId);
+        _initValues = {
+          'title': _editedProduct.title,
+          'description': _editedProduct.description,
+          'price': _editedProduct.price.toString(),
+          'imageUrl': '',
+        };
+        _imageUrlController.text = _editedProduct.imageUrl;
+      }
+    }
+    isInit = false;
+    super.didChangeDependencies();
   }
 
   void _saveForm() {
@@ -27,7 +54,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     _form.currentState.save();
-    Provider.of<Products>(context, listen: false).addProduct(_editedProduct,);
+
+    if (_editedProduct.id != null) {
+      Provider.of<Products>(context, listen: false).updateProduct(
+        _editedProduct.id, _editedProduct
+      );
+    } else {
+      Provider.of<Products>(context, listen: false).addProduct(
+        _editedProduct,
+      );
+    }
   }
 
   @override
@@ -52,6 +88,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 decoration: InputDecoration(
                   labelText: 'title',
                 ),
+                initialValue: _initValues['title'],
                 textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value.isEmpty) {
@@ -72,6 +109,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 decoration: InputDecoration(
                   labelText: 'price',
                 ),
+                initialValue: _initValues['price'],
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
                 validator: (value) {
@@ -99,6 +137,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 decoration: InputDecoration(
                   labelText: 'description',
                 ),
+                initialValue: _initValues['description'],
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
                 validator: (value) {
