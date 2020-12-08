@@ -1,66 +1,201 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../constants.dart';
+import '../widgets/widgets.dart';
+import '../config/pallete.dart';
+import '../config/styles.dart';
+import '../data/data.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String _country = 'IN';
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: buildAppBar(),
-      body: Container(
-        width: double.infinity,
-        height: 300,
-        decoration: BoxDecoration(
-          color: kPrimaryColor.withOpacity(0.03),
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(50),
-            bottomRight: Radius.circular(50),
-          ),
-        ),
-        child: Wrap(
+      appBar: CustomAppBar(),
+      body: CustomScrollView(
+        physics: ClampingScrollPhysics(),
+        slivers: [
+          _buildHeader(screenHeight),
+          _buildPreventionTios(screenHeight),
+          _buildYourOwnTest(screenHeight),
+        ],
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _buildYourOwnTest(double screenHeight) {
+    return SliverToBoxAdapter(
+      child: Container(
+        child: ,
+      ),
+    )
+  }
+
+  SliverToBoxAdapter _buildPreventionTios(double screenHeight) {
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
+            Text(
+              'prevention tips',
+              style: const TextStyle(
+                fontSize: 22.0,
+                fontWeight: FontWeight.w600,
               ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFF9C00).withOpacity(0.12),
-                          shape: BoxShape.circle,
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: prevention
+                  .map(
+                    (e) => Column(
+                      children: [
+                        Image.asset(
+                          e.keys.first,
+                          height: screenHeight * 0.12,
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: screenHeight * 0.015,
+                        ),
+                        Text(
+                          e.values.first,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   )
-                ],
-              ),
-            )
+                  .toList(),
+            ),
           ],
         ),
       ),
     );
   }
 
-  AppBar buildAppBar() {
-    return AppBar(
-      backgroundColor: kPrimaryColor.withOpacity(0.03),
-      elevation: 0,
-      leading: IconButton(
-        icon: SvgPicture.asset('assets/icons/menu.svg'),
-        onPressed: () {},
-      ),
-      actions: [
-        IconButton(
-          icon: SvgPicture.asset('assets/icons/search.svg'),
-          onPressed: () {},
+  SliverToBoxAdapter _buildHeader(double screenHeight) {
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: const EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          color: Palette.primaryColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(40.0),
+            bottomRight: Radius.circular(40.0),
+          ),
         ),
-      ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'covid',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32.1,
+                      fontWeight: FontWeight.bold),
+                ),
+                CountryDropdown(
+                  countries: [
+                    'CN',
+                    'FR',
+                    'IN',
+                    'IT',
+                    'UK',
+                    'USA',
+                  ],
+                  country: _country,
+                  onChanged: (val) => setState(() {
+                    _country = val;
+                  }),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: screenHeight * 0.03,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'are you feeling sick ?',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.01,
+                ),
+                Text(
+                  'please get yourself checked and avoid going out',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.03,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FlatButton.icon(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 18),
+                      color: Colors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.call,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'call us',
+                        style: Styles.buttonTextStyle,
+                      ),
+                      textColor: Colors.white,
+                    ),
+                    FlatButton.icon(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 18),
+                      color: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.chat_bubble,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'send SMS',
+                        style: Styles.buttonTextStyle,
+                      ),
+                      textColor: Colors.white,
+                    ),
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
