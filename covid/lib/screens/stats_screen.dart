@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/widgets.dart';
 import '../config/pallete.dart';
 import '../config/styles.dart';
+import '../data/data.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 
 class StatsScreen extends StatefulWidget {
@@ -22,10 +23,14 @@ class _StatsScreenState extends State<StatsScreen> {
           _buildRegionTab(),
           _buildStatsTabBar(),
           SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0,),
-          sliver: SliverToBoxAdapter(
-            child: StatsGrid(),
-          ),),
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.0,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: StatsGrid(),
+            ),
+          ),
+
         ],
       ),
     );
