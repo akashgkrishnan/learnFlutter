@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_app_bar.dart';
+import '../widgets/widgets.dart';
 import '../config/pallete.dart';
 import '../config/styles.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
@@ -18,9 +18,44 @@ class _StatsScreenState extends State<StatsScreen> {
       body: CustomScrollView(
         physics: ClampingScrollPhysics(),
         slivers: [
-          _buildHeader(), 
+          _buildHeader(),
           _buildRegionTab(),
-          _buildStatsTabBar()],
+          _buildStatsTabBar(),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0,),
+          sliver: SliverToBoxAdapter(
+            child: StatsGrid(),
+          ),),
+        ],
+      ),
+    );
+  }
+
+  SliverPadding _buildStatsTabBar() {
+    return SliverPadding(
+      padding: const EdgeInsets.all(20.0),
+      sliver: SliverToBoxAdapter(
+        child: DefaultTabController(
+          length: 3,
+          child: TabBar(
+            labelStyle: Styles.tabTextStyle,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white60,
+            indicatorColor: Colors.transparent,
+            tabs: [
+              Text(
+                'total',
+              ),
+              Text(
+                'yesterday',
+              ),
+              Text(
+                'today',
+              ),
+            ],
+            onTap: (index) {},
+          ),
+        ),
       ),
     );
   }
