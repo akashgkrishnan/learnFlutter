@@ -23,7 +23,7 @@ class CountryDropdown extends StatelessWidget {
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
-          value: this.country,
+          value: country,
           items: this.countries
               .map(
                 (e) => DropdownMenuItem(
