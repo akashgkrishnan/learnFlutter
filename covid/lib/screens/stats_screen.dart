@@ -12,6 +12,16 @@ class StatsScreen extends StatefulWidget {
 }
 
 class _StatsScreenState extends State<StatsScreen> {
+  int widgetIndex = 0;
+  List<Widget> statsWidget = [
+    StatsGrid(
+      isIndia: true,
+    ),
+    StatsGrid(
+      isIndia: false,
+    )
+  ];
+  
   Future<void> _refreshedProducts(BuildContext context) async {
     await Provider.of<CovidProvider>(context).todaysData();
   }
@@ -34,7 +44,7 @@ class _StatsScreenState extends State<StatsScreen> {
             sliver: SliverToBoxAdapter(
               child: RefreshIndicator(
                 onRefresh: () => _refreshedProducts(context),
-                child: StatsGrid(),
+                child: statsWidget[widgetIndex],
               ),
             ),
           ),
@@ -96,7 +106,12 @@ class _StatsScreenState extends State<StatsScreen> {
               Text('India'),
               Text('World'),
             ],
-            onTap: (index) {},
+            onTap: (index) {
+              setState(() {
+                print(index);
+                widgetIndex = index;
+              });
+            },
           ),
         ),
       ),

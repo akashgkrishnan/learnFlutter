@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import '../data/covid_data.dart';
 
 class StatsGrid extends StatefulWidget {
+  final bool isIndia;
+
+  const StatsGrid({Key key, this.isIndia}) : super(key: key);
   @override
   _StatsGridState createState() => _StatsGridState();
 }
@@ -18,11 +21,19 @@ class _StatsGridState extends State<StatsGrid> {
         _isLoading = true;
       });
 
-      Provider.of<CovidProvider>(context).todaysData().then((value) {
-        setState(() {
-          _isLoading = false;
+      if (widget.isIndia) {
+        Provider.of<CovidProvider>(context).todaysData().then((value) {
+          setState(() {
+            _isLoading = false;
+          });
         });
-      });
+      } else {
+        Provider.of<CovidProvider>(context).worldsData().then((value) {
+          setState(() {
+            _isLoading = false;
+          });
+        });
+      }
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -42,17 +53,22 @@ class _StatsGridState extends State<StatsGrid> {
                 Flexible(
                   child: Row(
                     children: [
-                      _buildStatsCard('total cases', data.totalCases.toString(), Colors.orange),
-                      _buildStatsCard('total deaths', data.deaths.toString(), Colors.red),
+                      _buildStatsCard('total cases', data.totalCases.toString(),
+                          Colors.orange),
+                      _buildStatsCard(
+                          'total deaths', data.deaths.toString(), Colors.red),
                     ],
                   ),
                 ),
                 Flexible(
                   child: Row(
                     children: [
-                      _buildStatsCard('recovered', data.recovered.toString(), Colors.green),
-                      _buildStatsCard('active', data.activeCases.toString(), Colors.lightBlue),
-                      _buildStatsCard('new deaths', data.deathsNew.toString(), Colors.purple),
+                      _buildStatsCard(
+                          'recovered', data.recovered.toString(), Colors.green),
+                      _buildStatsCard('active', data.activeCases.toString(),
+                          Colors.lightBlue),
+                      _buildStatsCard('new deaths', data.deathsNew.toString(),
+                          Colors.purple),
                     ],
                   ),
                 ),

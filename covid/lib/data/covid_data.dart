@@ -44,4 +44,29 @@ class CovidProvider with ChangeNotifier {
       throw error;
     }
   }
+
+  Future<void> worldsData() async {
+    const url =
+        'https://covid-f8c65-default-rtdb.firebaseio.com/world_covid.json';
+
+    try {
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      print(extractedData);
+      extractedData.forEach((key, value) {
+        this.data = CovidData(
+            activeCases: value['activeCases'],
+            recovered: value['recovered'],
+            deaths: value['deaths'],
+            totalCases: value['totalCases'],
+            deathsNew: value['totalCases'] -
+                value['activeCases'] -
+                value['recovered'] -
+                value['deaths']);
+      });
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
 }
