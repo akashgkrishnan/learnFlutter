@@ -1,32 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../data/covid_data.dart';
 
-class StatsGrid extends StatelessWidget {
+class StatsGrid extends StatefulWidget {
+  @override
+  _StatsGridState createState() => _StatsGridState();
+}
+
+class _StatsGridState extends State<StatsGrid> {
+  bool _isInit = true;
+  bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      Provider.of<CovidProvider>(context).todaysData().then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.25,
-      child: Column(
-        children: [
-          Flexible(
-            child: Row(
+    final CovidData data = Provider.of<CovidProvider>(context).data;
+    return _isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : Container(
+            height: MediaQuery.of(context).size.height * 0.25,
+            child: Column(
               children: [
-                _buildStatsCard('total cases', '180 M', Colors.orange),
-                _buildStatsCard('total deaths', '18 M', Colors.red),
+                Flexible(
+                  child: Row(
+                    children: [
+                      _buildStatsCard('total cases', data.totalCases.toString(), Colors.orange),
+                      _buildStatsCard('total deaths', data.deaths.toString(), Colors.red),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  child: Row(
+                    children: [
+                      _buildStatsCard('recovered', data.recovered.toString(), Colors.green),
+                      _buildStatsCard('active', data.activeCases.toString(), Colors.lightBlue),
+                      _buildStatsCard('new deaths', data.deathsNew.toString(), Colors.purple),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-          Flexible(
-            child: Row(
-              children: [
-                _buildStatsCard('recovered', '480 M', Colors.green),
-                _buildStatsCard('active', '28 M', Colors.lightBlue),
-                _buildStatsCard('crtital', '8 k', Colors.purple),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   Expanded _buildStatsCard(String title, String count, MaterialColor color) {

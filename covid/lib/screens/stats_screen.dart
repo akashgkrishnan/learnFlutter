@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import '../widgets/widgets.dart';
 import '../config/pallete.dart';
 import '../config/styles.dart';
-import '../data/data.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:provider/provider.dart';
+import '../data/covid_data.dart';
 
 class StatsScreen extends StatefulWidget {
   @override
@@ -11,6 +12,10 @@ class StatsScreen extends StatefulWidget {
 }
 
 class _StatsScreenState extends State<StatsScreen> {
+  Future<void> _refreshedProducts(BuildContext context) async {
+    await Provider.of<CovidProvider>(context).todaysData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +32,12 @@ class _StatsScreenState extends State<StatsScreen> {
               horizontal: 10.0,
             ),
             sliver: SliverToBoxAdapter(
-              child: StatsGrid(),
+              child: RefreshIndicator(
+                onRefresh: () => _refreshedProducts(context),
+                child: StatsGrid(),
+              ),
             ),
           ),
-
         ],
       ),
     );

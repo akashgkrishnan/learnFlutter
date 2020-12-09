@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.0
   bubble_tab_indicator:
   fl_chart:
+  http:
+  provider:
 
 dev_dependencies:
   flutter_test:
