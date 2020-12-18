@@ -109,7 +109,7 @@ class _StatsScreenState extends State<StatsScreen> {
             onTap: (index) {
               setState(() {
                 print(index);
-                widgetIndex = index;
+                this.widgetIndex = index;
               });
             },
           ),

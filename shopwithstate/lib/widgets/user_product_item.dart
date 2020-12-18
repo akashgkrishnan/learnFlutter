@@ -5,11 +5,13 @@ import '../providers/product_provider.dart';
 
 class UserProductItem extends StatelessWidget {
   final String title, imageUrl, id;
+  
 
   const UserProductItem({Key key, this.title, this.imageUrl, this.id})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final scaffold = Scaffold.of(context);
     return ListTile(
       leading: CircleAvatar(
         backgroundImage: NetworkImage(this.imageUrl),
@@ -29,8 +31,18 @@ class UserProductItem extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(Icons.delete),
-              onPressed: () {
-                Provider.of<Products>(context, listen: false).deleteProduct(id);
+              onPressed: () async {
+                try {
+                  await Provider.of<Products>(context, listen: false)
+                      .deleteProduct(id);
+                } catch (error) {
+                  scaffold.showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text('failed'),
+                    ),
+                  );
+                }
               },
               color: Theme.of(context).errorColor,
             )
