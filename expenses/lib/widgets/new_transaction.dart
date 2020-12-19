@@ -17,7 +17,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
   DateTime _selectedDate;
 
-  void _printDatePicker() {
+  void   _printDatePicker() {
     showDatePicker(
             context: context,
             initialDate: DateTime.now(),
