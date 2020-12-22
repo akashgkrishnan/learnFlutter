@@ -38,10 +38,10 @@ class Body extends StatelessWidget {
                       context,
                       MaterialPageRoute(builder: (context)=> DetailsScreen(
                         product: products[index],
-                      ))
+                      ),)
                     ),
-                  )),
-        ))
+                  ),),
+        ),)
       ],
     );
   }
