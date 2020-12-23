@@ -3,6 +3,8 @@ import '../models/custom_grid_item.dart';
 import '../models/player.dart';
 import './winner_screen.dart';
 import '../widgets/draw_widget.dart';
+import '../widgets/custom_rounded_button.dart';
+import 'home_page.dart';
 
 class GameScreen extends StatefulWidget {
   static const routeName = '/game-screen';
@@ -14,7 +16,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   bool _player1Move = true;
   int _count = 0;
-  var _winner;
+  Player _winner;
   var _player1Moves = Set();
   var _player2Moves = Set();
   final customeGridItems = List.generate(
@@ -88,7 +90,7 @@ class _GameScreenState extends State<GameScreen> {
                     color: _player1Move ? Colors.green : Color(0xFFB15A55),
                   ),
                   child: Text(
-                    player1.name,
+                    '${player1.name} (${player1.symbol})',
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),
@@ -103,7 +105,7 @@ class _GameScreenState extends State<GameScreen> {
                   ),
                   width: _player1Move ? 120 : 180,
                   child: Text(
-                    player2.name,
+                    '${player2.name} (${player2.symbol})',
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 )
@@ -155,7 +157,11 @@ class _GameScreenState extends State<GameScreen> {
                                       Navigator.of(context)
                                           .pushReplacementNamed(
                                               WinnerScreen.routeName,
-                                              arguments: _winner);
+                                              arguments: {
+                                            'player1': player1,
+                                            'player2': player2,
+                                            'winner': _winner
+                                          });
                                     }
                                   }
                                 } else {
@@ -178,7 +184,11 @@ class _GameScreenState extends State<GameScreen> {
                                       Navigator.of(context)
                                           .pushReplacementNamed(
                                               WinnerScreen.routeName,
-                                              arguments: _winner);
+                                              arguments: {
+                                            'player1': player1,
+                                            'player2': player2,
+                                            'winner': _winner
+                                          });
                                     }
                                   }
                                 }
@@ -198,8 +208,17 @@ class _GameScreenState extends State<GameScreen> {
                           child: customeGridItems[index],
                         ),
                       )
-                    : DrawWidgetFail(),
+                    : DrawWidgetFail(
+                        player1: player1,
+                        player2: player2,
+                      ),
               ),
+            ),
+            CustomRoundedButton(
+              press: () {
+                Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+              },
+              text: 'back to home',
             ),
           ],
         ),
