@@ -1,46 +1,35 @@
 import 'package:flutter/material.dart';
+import 'utils.dart';
 
 class OptionsSideBar extends StatelessWidget {
-  const OptionsSideBar({
+  OptionsSideBar({
     Key key,
   }) : super(key: key);
 
+  final List<Widget> _options = List.generate(13, (_) {
+    var color = returnRandomColor();
+    return Draggable<Widget>(
+      data: Container(
+        height: 40,
+        color: color,
+      ),
+      feedback: Container(
+        height: 40,
+        width: 40,
+        color: color,
+      ),
+      child: Container(
+        height: 40,
+        color: color,
+      ),
+    );
+  });
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 2,
       child: Column(
-        children: [
-          Container(
-            height: 40,
-            color: Colors.red,
-          ),
-          Container(
-            height: 40,
-            color: Colors.red,
-          ),
-          Container(
-            height: 40,
-            color: Colors.yellow,
-          ),
-          Container(
-            height: 40,
-            color: Colors.blue,
-          ),
-          Draggable(
-            data: Container(
-              height: 40,
-              color: Colors.red,
-            ),
-            feedback: Container(
-              child: Text('a'),
-            ),
-            child: Container(
-              height: 40,
-              color: Colors.red,
-            ),
-          ),
-        ],
+        children: _options
       ),
     );
   }
