@@ -9,7 +9,7 @@ List<Color> colors = [
   Colors.yellow,
   Colors.purple,
   Colors.amber,
-  Colors.orange,
+  Colors.white,
   Colors.teal,
   Colors.black,
   Colors.blue,

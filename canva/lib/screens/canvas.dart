@@ -36,6 +36,8 @@ class CanvaScreen extends StatelessWidget {
                         );
                         var index = providerData.removeDoneIndexesAndStack();
                         providerData.updateWidget(index, widget);
+                        // providerData.saveItemsToDisk();
+                        
                       }
                     },
                     icon: Icon(Icons.undo),
@@ -69,6 +71,7 @@ class CanvaScreen extends StatelessWidget {
                         }
                         providerData.updateDoneIndexesAndStack(index);
                         providerData.updateWidget(index, data);
+                        // providerData.saveItemsToDisk();
                       },
                       builder: (context, _, rejectedData) => Column(
                         children: newCanvasWidgets,
