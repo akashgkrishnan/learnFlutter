@@ -6,7 +6,7 @@ class PlaceLocation {
   final double longitude;
   final String address;
 
-  const PlaceLocation(
+  PlaceLocation(
       {this.address, @required this.lattitude, @required this.longitude});
 }
 

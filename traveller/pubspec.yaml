@@ -27,9 +27,6 @@ dependencies:
   image_picker:
   path_provider:
   path:
-  sqflite:
-  location:
-  google_maps_flutter:
 
   
 
