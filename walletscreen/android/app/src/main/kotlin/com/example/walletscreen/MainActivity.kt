@@ -1,4 +1,4 @@
-package com.example.acountui
+package com.example.walletscreen
 
 import io.flutter.embedding.android.FlutterActivity
 
